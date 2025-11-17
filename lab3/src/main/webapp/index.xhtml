@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Лабораторная 3 (Мафия 2)</title>
+
+    <h:outputStylesheet library="styles" name="header.css"/>
+    <h:outputStylesheet library="styles" name="clock.css"/>
+    <h:outputStylesheet library="styles" name="mafiaButton.css"/>
+    <h:outputScript target="body" library="scripts" name="firstPage.js" />
+    <h:outputScript target="body" library="scripts" name="soundButton.js"/>
+
+</h:head>
+<h:body>
+
+
+    <div style="
+        width: 100vw;
+        height: 100vh;
+        background-image: url('#{resource['media:empirebay.png']}');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+
+    ">
+
+        <div class="screen">
+            <header class="app-header">
+                <div class="info-header">
+                    Веб-программирование, Лабораторная работа №3, вариант 32161
+                </div>
+                <div class="info-header">
+                    Григорьев Даниил Александрович, P3216
+                </div>
+
+            </header>
+
+
+            <div id="digitalClock" class="digital-clock"></div>
+
+            <h:outputScript library="scripts" name="digitalClock.js" target="body" />
+
+            <p class="mafia-header"> Главное меню </p>
+
+            <h:link outcome="main" styleClass="mafia-button" id="startGame">
+                <p>Начать игру</p>
+            </h:link>
+
+            <audio id="bgAudio" loop="loop">
+                <source src="resources/media/main_theme.mp3" type="audio/mp3"/>
+            </audio>
+
+            <h:commandLink id="soundButton" onclick="toggleSound(); return false;">
+                <span class="mafia-button" id="soundButtonText">Включить звук</span>
+            </h:commandLink>
+        </div>
+
+    </div>
+
+</h:body>
+</html>

@@ -1,0 +1,70 @@
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.main-layout {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+    align-items: flex-start;
+}
+
+.form-panel {
+    width: 300px;
+    background: rgba(255, 255, 255, 0.53);
+    padding: 40px;
+    border-radius: 8px;
+}
+
+.input-block {
+    margin-bottom: 20px;
+}
+
+.input-label {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.mafia-input {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #000720;
+    background: #e6e6e6;
+    border-radius: 4px;
+}
+
+.r-grid .r-label {
+    font-size: 18px;
+    margin-right: 10px;
+    color: white;
+}
+
+.graph-panel {
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+}
+
+.svg {
+    width: 310px;
+    height: 310px;
+}
+
+.mafia-submit {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: black !important;
+    color: white !important;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.mafia-back {
+    margin-top: 15px;
+    display: inline-block;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}

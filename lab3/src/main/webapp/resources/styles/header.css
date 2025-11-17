@@ -1,0 +1,31 @@
+.mafia-header {
+    font-family: "Georgia", serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+    padding: 10px;
+    background-image: url("brush.png"); !important;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    margin-bottom: 1px;
+
+    position: relative;
+    display: inline-block;
+}
+
+.info-header {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#check-point {
+    display: flex;
+    font-family: "Georgia", serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+    justify-content: center;
+}
