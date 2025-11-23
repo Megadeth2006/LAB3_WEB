@@ -16,32 +16,57 @@ window.addEventListener("DOMContentLoaded", () => {
         sound.play().catch(() => {});
     }
 
-    // --- Выстрел по графику ---
     const svg = document.getElementById("mainSvg");
     if (svg) {
         svg.addEventListener("click", () => {
-           if (checkR()) playRandomShot();  // ← главное изменение
+           if (checkR()) playRandomShot();
         });
     }
 
-    // --- Счёт X из hiddenX ---
+
     window.saveShotCount = function () {
         const hiddenX = document.getElementById("hiddenX").value;
 
         if (!hiddenX || hiddenX.trim() === "") {
-            savedShotCount = 1;
+            savedShotCount = 0;
             return;
         }
 
         const arr = hiddenX.split(",").filter(v => v.trim() !== "");
-        savedShotCount = arr.length > 0 ? arr.length : 1;
+        savedShotCount = arr.length > 0 ? arr.length : 0;
     };
 
-    // --- Одновременные выстрелы ---
+
     window.playShotsInstant = function () {
         for (let i = 0; i < savedShotCount; i++) {
-            playRandomShot();
+            setTimeout(() => {
+                playRandomShot();
+            }, i * 50);
         }
+
+        // Сбрасываем X/Y после всех выстрелов
+        setTimeout(() => {
+            clearHiddenInputs();
+        }, savedShotCount * 60);
     };
 
+
 });
+function clearHiddenInputs() {
+    const hiddenY = document.getElementById("hiddenY");
+    const hiddenR = document.getElementById("hiddenR");
+    const hiddenX = document.getElementById("hiddenX");
+
+    if (hiddenY) hiddenY.value = "";
+    if (hiddenR) hiddenR.value = "";
+    if (hiddenX) hiddenX.value = "";
+
+    const yInput = document.getElementById("yInput");
+    if (yInput) yInput.value = "";
+}
+
+function resetXBoxes() {
+    const boxes = document.querySelectorAll('input[type="checkbox"][data-x]');
+    boxes.forEach(cb => cb.checked = false);
+    document.getElementById("hiddenX").value = "";
+}

@@ -28,5 +28,5 @@ function showError(message) {
         if (toast.parentElement) {
             toast.remove()
         }
-    }, 5000)
+    }, 2000)
 }

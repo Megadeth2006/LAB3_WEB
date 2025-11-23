@@ -45,7 +45,7 @@
             <div class="form-panel">
                 <div class="mainCl">
                 <h:form id="input-form" prependId="false">
-
+                    <p:remoteCommand name="resetXBoxesCommand" oncomplete="resetXBoxes()" />
 
                     <div class="input-block">
                         <div class="input-label">X:</div>
@@ -136,17 +136,18 @@
                                      process="@form"
                                      update="input-form @form :responsesForm"
                                      onclick="
-    if (!validate()) {
-        shotsEnabled = false;
-        return false;
-    }
-    shotsEnabled = true;
-    saveShotCount();
-    playShotsInstant();
-"
+                                            if (!validate()) {
+                                               shotsEnabled = false;
+                                            return false;
+                                        }
+                                        shotsEnabled = true;
+                                        saveShotCount();
+                                        playShotsInstant();
+                                     "
 
                                      oncomplete="updateRCommand([{ name: 'maxR', value: document.getElementById('rInput').value }]);
-                             clearHiddenInputs();"/>
+                                     resetXBoxesCommand();
+    "/>
 
 
 
