@@ -47,6 +47,13 @@ function validate() {
     return true;
 }
 
+function checkR() {
+    let rH = get("mainCl", "#rInput", 1, 4, "R must be between 1 and 4");
+    return rH.isValid;
+
+
+}
+
 
 
 

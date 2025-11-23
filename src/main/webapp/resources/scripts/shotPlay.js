@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const svg = document.getElementById("mainSvg");
     if (svg) {
         svg.addEventListener("click", () => {
-            if (validate()) playRandomShot();  // ← главное изменение
+           if (checkR()) playRandomShot();  // ← главное изменение
         });
     }
 
