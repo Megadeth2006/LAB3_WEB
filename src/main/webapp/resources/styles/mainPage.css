@@ -1,9 +1,4 @@
-body{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    cursor: url("../media/arrow.cur"), auto;
-}
+
 
 /* Заголовок */
 #check-point {
@@ -120,7 +115,7 @@ body{
     height: 450px;
     background: #f8f9fa;
     border-radius: 8px;
-    cursor: url("../media/cursor.cur"), crosshair !important;
+    cursor: url("#{resource['media:cursors/cursor.cur']}"), crosshair !important;
 }
 
 .svg line {
@@ -148,7 +143,7 @@ body{
     border-radius: 10px !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
     text-transform: none;
-    cursor: url("../media/link.cur"), pointer !important;
+    cursor: url("../media/cursors/link.cur"), pointer !important;
     width: 100%;
 }
 
@@ -174,7 +169,7 @@ body{
     border-radius: 0;
     border: none;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-    cursor: url("../media/link.cur"), pointer !important;
+    cursor: url("#{resource['media:cursors/link.cur']}"), pointer !important;
 }
 
 .mafia-back:hover {
@@ -320,5 +315,5 @@ select,
 button,
 a,
 label {
-    cursor: url("../media/link.cur"), pointer;
+    cursor: url("#{resource['media:cursors/link.cur']}"), pointer;
 }
