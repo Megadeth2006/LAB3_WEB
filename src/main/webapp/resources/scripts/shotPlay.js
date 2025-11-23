@@ -19,9 +19,14 @@ window.addEventListener("DOMContentLoaded", () => {
     const svg = document.getElementById("mainSvg");
     if (svg) {
         svg.addEventListener("click", () => {
-           if (checkR()) playRandomShot();
+            if (checkR()) {
+                playRandomShot();
+                resetXBoxes();
+                document.getElementById("hiddenX").value = "";
+            }
         });
     }
+
 
 
     window.saveShotCount = function () {

@@ -7,7 +7,7 @@
 
 
   
-  <!-- PointRepository Bean -->
+<!--   PointRepository Bean -->
   <managed-bean>
     <managed-bean-name>pointRepository</managed-bean-name>
     <managed-bean-class>programming.itmo.repositories.PointRepositoryORM</managed-bean-class>
@@ -36,7 +36,7 @@
     </managed-property>
   </managed-bean>
 
-  <!-- Правила навигации -->
+  <!-- навигация -->
   <navigation-rule>
     <from-view-id>/main.xhtml</from-view-id>
 
