@@ -1,22 +1,30 @@
 
+a.mafia-button,
+a > .mafia-button,
+a[id="soundButton"],
+h\\:commandLink .mafia-button {
+    text-decoration: none !important;
+    border: none !important;
+}
+
 .mafia-button {
     display: block;
     width: fit-content;
-    text-decoration: none; !important;
+    text-decoration: none !important;
     font-family: "Georgia", serif;
     font-size: 22px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 2px;
 
-    color: black;                /* текст чёрный */
-    background: transparent;     /* без фона */
+    color: black;
+    background: transparent;
 
     padding: 10px 25px 10px 55px;
     margin: 12px 0;
 
 
-    cursor: pointer;
+    cursor: url("../media/link.cur"), pointer;
 
     position: relative;
 
@@ -24,6 +32,7 @@
 }
 
 /* Brush слева */
+/* Закомментировано - файл brush.png не используется
 .mafia-button::before {
     content: "";
     position: absolute;
@@ -33,17 +42,18 @@
     width: 100px;
     height: 30px;
 
-    background-image: url("#{resource['media:brush.png']}");
+    background-image: url("../media/brush.png");
     background-size: cover;
     background-repeat: no-repeat;
 
     transform: translateY(-50%);
     opacity: 0.85;
 }
+*/
 
 
 .mafia-button:hover {
-    background: black;   /* появляется чёрный фон */
-    color: white;        /* белый текст */
-    letter-spacing: 3px; /* лёгкое растяжение букв */
+    background: black;
+    color: white;
+    letter-spacing: 3px;
 }

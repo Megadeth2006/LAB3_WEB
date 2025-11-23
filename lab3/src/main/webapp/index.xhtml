@@ -10,7 +10,6 @@
     <h:outputStylesheet library="styles" name="clock.css"/>
     <h:outputStylesheet library="styles" name="mafiaButton.css"/>
     <h:outputScript target="body" library="scripts" name="firstPage.js" />
-    <h:outputScript target="body" library="scripts" name="soundButton.js"/>
 
 </h:head>
 <h:body>
@@ -47,14 +46,6 @@
             <h:link outcome="main" styleClass="mafia-button" id="startGame">
                 <p>Начать игру</p>
             </h:link>
-
-            <audio id="bgAudio" loop="loop">
-                <source src="resources/media/main_theme.mp3" type="audio/mp3"/>
-            </audio>
-
-            <h:commandLink id="soundButton" onclick="toggleSound(); return false;">
-                <span class="mafia-button" id="soundButtonText">Включить звук</span>
-            </h:commandLink>
         </div>
 
     </div>

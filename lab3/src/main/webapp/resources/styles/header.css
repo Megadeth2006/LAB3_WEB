@@ -1,10 +1,14 @@
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    cursor: url("../media/arrow.cur"), auto;
+}
+
 .mafia-header {
     font-family: "Georgia", serif;
     font-size: 28px;
     font-weight: bold;
     color: black;
     padding: 10px;
-    background-image: url("brush.png"); !important;
     letter-spacing: 2px;
     text-transform: uppercase;
 

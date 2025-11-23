@@ -1,0 +1,28 @@
+ssh -p 2222 s465635@se.ifmo.ru -L 16250:helios.cs.ifmo.ru:16250
+bash windfly/wildfly-21.0.0.Final/bin/standalone.sh
+http://localhost:16250/area-check/controller
+
+
+CREATE TABLE points (
+    id SERIAL PRIMARY KEY,
+    x NUMERIC(30, 10) NOT NULL,
+    y NUMERIC(30, 10) NOT NULL,
+    r NUMERIC(30, 10) NOT NULL,
+    in_area BOOLEAN NOT NULL
+);
+
+
+# Остановить WildFly (если запущен)
+pkill -f wildfly
+
+# Удалить временные файлы развертывания
+rm -rf ~/windfly/wildfly-21.0.0.Final/standalone/tmp/*
+rm -rf ~/windfly/wildfly-21.0.0.Final/standalone/data/*
+
+# Удалить старые резервные копии конфигураций
+rm -rf ~/windfly/wildfly-21.0.0.Final/standalone/configuration/*_xml_history/*
+
+# Удалить большие логи
+rm -f ~/windfly/wildfly-21.0.0.Final/standalone/log/server.log.*
+# Оставить только текущий лог
+truncate -s 0 ~/windfly/wildfly-21.0.0.Final/standalone/log/server.log

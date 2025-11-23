@@ -14,10 +14,9 @@
     <h:outputStylesheet library="styles" name="header.css"/>
     <h:outputStylesheet library="styles" name="style.css"/>
     <h:outputStylesheet library="styles" name="mafiaButton.css"/>
-    <h:outputScript library="scripts" name="soundButton.js" />
-    <h:outputScript library="scripts" name="error.js" />
-    <h:outputScript library="scripts" name="validator.js" />
-    <h:outputScript library="scripts" name="draw.js" />
+    <h:outputScript library="scripts" name="error.js" target="head" />
+    <h:outputScript library="scripts" name="validator.js" target="head" />
+    <h:outputScript library="scripts" name="draw.js" target="head" />
 
 </h:head>
 <h:body>
@@ -36,164 +35,127 @@
 
         <div class="main-layout">
 
-            <!-- ЛЕВАЯ КОЛОНКА: Ввод X/Y/R -->
-            <div class="form-panel">
 
+            <div class="form-panel">
+                <div class="mainCl">
                 <h:form id="input-form" prependId="false">
 
-                    <!-- Ввод X -->
+
                     <div class="input-block">
                         <div class="input-label">X:</div>
 
-                        <h:selectManyCheckbox id="select-x"
-                                              value="#{inputBean.xList}"
-                                              styleClass="mafia-checkbox-group">
+                        <ui:param name="xValues" value="-5,-4,-3,-2,-1,0,1" />
 
-                            <f:selectItem itemLabel="5" itemValue="5" />
-                            <f:selectItem itemLabel="-4" itemValue="-4" />
-                            <f:selectItem itemLabel="-3" itemValue="-3" />
-                            <f:selectItem itemLabel="-2" itemValue="-2" />
-                            <f:selectItem itemLabel="-1" itemValue="-1" />
-                            <f:selectItem itemLabel="0"  itemValue="0" />
-                            <f:selectItem itemLabel="1"  itemValue="1" />
+                        <h:panelGrid columns="7">
+                            <ui:repeat value="#{xValues.split(',')}" var="xx">
 
-                            <p:ajax event="change" oncomplete="syncHiddenWithRadio()" />
-                        </h:selectManyCheckbox>
+                                <p:selectBooleanCheckbox id="x#{xx}"
+                                                         value="#{pointsBean.xList[xx]}"
+                                                         pt:data-x="#{xx.trim()}"
+                                                         onchange="updateHiddenX()">
+                                    <p:ajax event="change" process="@this" update="@none"/>
+                                </p:selectBooleanCheckbox>
+
+                                <h:outputLabel for="x#{xx}" value="#{xx}" />
+
+                            </ui:repeat>
+                        </h:panelGrid>
                     </div>
 
 
-                    <!-- Ввод Y -->
+
                     <div class="input-block">
                         <div class="input-label">Y:</div>
-                        <h:inputText id="yInput" value="#{inputBean.y}" styleClass="mafia-input"
-                                     placeholder="-3 ... 5">
-                            <f:convertNumber maxFractionDigits="10" />
-                            <f:validateDoubleRange min="-3" max="5" />
-                            <p:ajax event="keyup" oncomplete="syncHiddenWithText()" />
+
+                        <h:inputText id="yInput"
+                                     value="#{pointsBean.y}"
+                                     styleClass="mafia-input"
+                                     placeholder="-3 ... 5"
+                                     required="true"
+                                     requiredMessage="Y is required">
+                            <f:convertNumber maxFractionDigits="10" minFractionDigits="0" />
+                            <f:validateDoubleRange minimum="-3" maximum="5" />
+                            <p:ajax event="keyup" update="yMessage" oncomplete="syncHiddenY()"/>
                         </h:inputText>
-                        <h:message for="yInput" style="color:#ff3333" />
+                        <h:message id="yMessage" for="yInput" style="color:red; font-size:12px;" />
                     </div>
 
-                    <!-- Ввод R -->
+
+
                     <div class="input-block">
                         <div class="input-label">R:</div>
-                        <h:inputText id="rInput" value="#{inputBean.r}" styleClass="mafia-input"
-                                     placeholder="1 ... 4">
-                            <f:convertNumber maxFractionDigits="10" />
-                            <f:validateDoubleRange min="1" max="4" />
-                            <p:ajax event="keyup" oncomplete="syncHiddenWithText()" />
-                        </h:inputText>
 
+                        <h:inputText id="rInput"
+                                     value="#{pointsBean.r}"
+                                     styleClass="mafia-input"
+                                     placeholder="1 ... 4"
+                                     required="true"
+                                     requiredMessage="R is required">
+                            <f:convertNumber maxFractionDigits="2" minFractionDigits="0" />
+                            <f:validateDoubleRange minimum="1" maximum="4" />
+                            <p:ajax event="keyup"
+                                    update="rMessage"
+                                    oncomplete="syncHiddenR(); updateGraph(document.getElementById('rInput').value);"/>
+                        </h:inputText>
+                        <h:message id="rMessage" for="rInput" style="color:red; font-size:12px;" />
                     </div>
 
-                    <!-- Hidden fields -->
-                    <h:inputHidden id="hiddenX" value="#{inputBean.x}"/>
-                    <h:inputHidden id="hiddenY" value="#{inputBean.y}"/>
-                    <h:inputHidden id="hiddenR" value="#{inputBean.hiddenR}" />
 
-                    <!-- Кнопка Проверить -->
-                    <p:commandButton value="Проверить" id="submitBtn"
-                                     styleClass="mafia-submit"
-                                     action="#{inputBean.check}"
-                                     update="input-form @form :responsesForm"
+
+                    <h:inputHidden id="hiddenX" value="#{pointsBean.hiddenX}" />
+                    <h:inputHidden id="hiddenY" value="#{pointsBean.hiddenY}" />
+                    <h:inputHidden id="hiddenR" value="#{pointsBean.hiddenR}" />
+
+
+                    <p:remoteCommand name="resetHiddenRCommand"
+                                     process="@this"
+                                     update=":responsesForm"
+                                     actionListener="#{pointsBean.resetHiddenR}" />
+
+                    <p:remoteCommand name="updateRCommand"
+                                     action="#{pointsBean.setCurrentMaxR}"
+                                     process="@this"
+                                     update="@none"
+                                     oncomplete="getPointsCommand()" />
+
+                    <p:remoteCommand name="getPointsCommand"
+                                     action="#{pointsBean.updateFilteredPoints}"
+                                     process="@this"
+                                     update="@none"
+                                     oncomplete="handleRemoteCommandComplete(args)" />
+                    <p:commandButton id="submitBtn"
+                                     value="Проверить"
+                                     action="#{pointsBean.check}"
+                                     ajax="true"
                                      process="@form"
-                                     oncomplete="playShotSound(args.wasProbitie);
-                                             updateRCommand([{ name: 'maxR', value: getMaxR() }]);
-                                             clearHiddenInputs()" />
+                                     update="input-form @form :responsesForm"
+                                     onclick="if (!validate()) return false;"
+                                     oncomplete="updateRCommand([{ name: 'maxR', value: document.getElementById('rInput').value }]); clearHiddenInputs();" />
 
                 </h:form>
+                </div>
 
-                <audio id="bgAudio" loop="loop">
-                    <source src="resources/media/main_theme.mp3" type="audio/mp3"/>
-                </audio>
-
-                <h:commandLink id="soundButton" onclick="toggleSound(); return false;">
-                    <span class="mafia-button" id="soundButtonText">Включить звук</span>
-                </h:commandLink>
-                <!-- Back -->
                 <h:link value="Назад" outcome="index" styleClass="mafia-back" />
 
             </div>
 
 
-            <!-- ПРАВАЯ КОЛОНКА: График -->
-            <div class="graph-panel">
-                <svg class="svg">
-                    <svg width="300" height="300" class="svg">
 
-                        <!-- Синие области -->
+            <div class="graph-panel" id="graph-panel">
 
-                        <!-- 1: Прямоугольник справа (R/2 .. R по X, -R/2 .. R/2 по Y) -->
-                        <rect x="150" y="100" width="100" height="100" fill="#4eaaff" opacity="0.85"/>
-
-                        <!-- 2: Четверть круга снизу справа -->
-                        <path d="
-        M150 150
-        A100 100 0 0 1 250 250
-        L150 250
-        Z"
-                              fill="#4eaaff" opacity="0.85"/>
-
-                        <!-- 3: Треугольник сверху слева -->
-                        <polygon points="
-        150,150
-        50,150
-        150,50"
-                                 fill="#4eaaff" opacity="0.85"/>
-
-                        <!-- Оси -->
-                        <line x1="0" y1="150" x2="300" y2="150" stroke="black" />
-                        <line x1="150" y1="0" x2="150" y2="300" stroke="black" />
-
-                        <!-- Стрелки -->
-                        <polygon points="300,150 290,145 290,155" fill="black"/>
-                        <polygon points="150,0 145,10 155,10" fill="black"/>
-
-                        <!-- Подписи осей -->
-                        <text x="290" y="140" font-size="12">x</text>
-                        <text x="160" y="12" font-size="12">y</text>
-
-                        <!-- Деления и числа -->
-                        <!-- X positive -->
-                        <line x1="200" y1="145" x2="200" y2="155" stroke="black"/>
-                        <text x="195" y="140" font-size="12">R/2</text>
-
-                        <line x1="250" y1="145" x2="250" y2="155" stroke="black"/>
-                        <text x="245" y="140" font-size="12">R</text>
-
-                        <!-- X negative -->
-                        <line x1="100" y1="145" x2="100" y2="155" stroke="black"/>
-                        <text x="90" y="140" font-size="12">-R/2</text>
-
-                        <line x1="50" y1="145" x2="50" y2="155" stroke="black"/>
-                        <text x="40" y="140" font-size="12">-R</text>
-
-                        <!-- Y positive -->
-                        <line x1="145" y1="100" x2="155" y2="100" stroke="black"/>
-                        <text x="160" y="105" font-size="12">R/2</text>
-
-                        <line x1="145" y1="50" x2="155" y2="50" stroke="black"/>
-                        <text x="160" y="55" font-size="12">R</text>
-
-                        <!-- Y negative -->
-                        <line x1="145" y1="200" x2="155" y2="200" stroke="black"/>
-                        <text x="160" y="205" font-size="12">-R/2</text>
-
-                        <line x1="145" y1="250" x2="155" y2="250" stroke="black"/>
-                        <text x="160" y="255" font-size="12">-R</text>
-
+                    <svg width="450" height="450" class="svg" id="mainSvg">
                     </svg>
 
 
-                </svg>
+
             </div>
 
         </div>
 
-        <!-- Таблица результатов -->
+
         <h:form id="responsesForm" prependId="false">
             <p:panel header="Результаты" styleClass="mafia-results">
-                <p:dataTable id="responsesId" value="#{inputBean.reversedPoints}" var="point"
+                <p:dataTable id="responsesId" value="#{pointsBean.reversedPoints}" var="point"
                              styleClass="transparent-table"
                              scrollable="true" scrollHeight="250">
 

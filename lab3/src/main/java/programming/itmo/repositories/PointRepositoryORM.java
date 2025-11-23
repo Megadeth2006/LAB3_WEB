@@ -2,8 +2,6 @@ package programming.itmo.repositories;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,8 +10,6 @@ import lombok.Setter;
 import programming.itmo.entities.PointEntity;
 import programming.itmo.model.PointDTO;
 
-@ManagedBean(name="pointRepository")
-@ApplicationScoped
 @Getter
 @Setter
 public class PointRepositoryORM implements PointRepository{
