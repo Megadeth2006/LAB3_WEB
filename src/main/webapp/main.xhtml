@@ -22,6 +22,7 @@
     <audio id="shot3" src="resources/media/sounds/shot3.mp3"></audio>
     <audio id="shot4" src="resources/media/sounds/shot4.mp3"></audio>
     <h:outputScript library="scripts" name="shotPlay.js" target="body"/>
+    <audio loop="loop" src="resources/media/music/letItSnow.mp3" id="audioBG"/>
 
 </h:head>
 <h:body>
@@ -152,7 +153,8 @@
 
                 </h:form>
                 </div>
-
+                <button class="mafia-button" id="musicButton"> Включить звук </button>
+                <h:outputScript target="body" library="scripts" name="playButton.js"/>
                 <h:link value="Назад" outcome="index" styleClass="mafia-back" />
 
             </div>
