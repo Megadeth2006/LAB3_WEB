@@ -78,7 +78,18 @@ public class PointsBean implements Serializable {
 
         PrimeFaces.current().ajax().addCallbackParam("bulletHit", bulletHit);
     }
-    
+    public void resetXList() {
+        for (String key : xList.keySet()) {
+            xList.put(key, false);
+        }
+        hiddenX = "";
+    }
+
+    public void resetY() {
+        this.y = null;
+        this.hiddenY = "";
+    }
+
     public void updateFilteredPoints() {
         List<PointDTO> allPoints = checkAreaUtil.getPointRepository().getAllPoints();
         // Пересчитываем попадание точек с текущим максимальным R

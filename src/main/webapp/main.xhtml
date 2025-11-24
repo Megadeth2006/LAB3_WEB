@@ -45,8 +45,23 @@
             <div class="form-panel">
                 <div class="mainCl">
                 <h:form id="input-form" prependId="false">
-                    <p:remoteCommand name="resetXBoxesCommand" oncomplete="resetXBoxes()" />
 
+                    <p:remoteCommand name="resetXServer"
+                                     actionListener="#{pointsBean.resetXList}"
+                                     update="@form"
+                                     process="@this"/>
+                    <p:remoteCommand name="resetYServer"
+                                     actionListener="#{pointsBean.resetY}"
+                                     process="@this"
+                                     update="@form"/>
+                    <script>
+                        window.resetXServerGlobal = function() {
+                            resetXServer(); // JSF remoteCommand
+                        }
+                        window.resetYServerGlobal = function() {
+                            resetYServer();
+                        }
+                    </script>
                     <div class="input-block">
                         <div class="input-label">X:</div>
 
@@ -146,7 +161,8 @@
                                      "
 
                                      oncomplete="updateRCommand([{ name: 'maxR', value: document.getElementById('rInput').value }]);
-                                     resetXBoxesCommand();
+    resetXServer();
+    resetYServer();
     "/>
 
 

@@ -21,12 +21,23 @@ window.addEventListener("DOMContentLoaded", () => {
         svg.addEventListener("click", () => {
             if (checkR()) {
                 playRandomShot();
+
                 resetXBoxes();
                 document.getElementById("hiddenX").value = "";
+                window.resetXServerGlobal();
+
+                resetYInput();              // клиентский сброс Y
+                window.resetYServerGlobal(); // серверный сброс Y
             }
         });
     }
+    function resetYInput() {
+        const yInput = document.getElementById("yInput");
+        const hiddenY = document.getElementById("hiddenY");
 
+        if (yInput) yInput.value = "";
+        if (hiddenY) hiddenY.value = "";
+    }
 
 
     window.saveShotCount = function () {
