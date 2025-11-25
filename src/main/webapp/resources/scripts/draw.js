@@ -98,7 +98,7 @@ function drawAxes(r) {
     const svg = document.querySelector('.graph-panel svg');
     if (!svg) return;
     
-    // Удаляем старые оси
+    // удаляем старые оси
     const oldAxes = svg.querySelector('#axes-group');
     if (oldAxes) {
         svg.removeChild(oldAxes);
@@ -107,7 +107,7 @@ function drawAxes(r) {
     const axesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     axesGroup.setAttribute('id', 'axes-group');
     
-    // Оси
+    // оси
     const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     xAxis.setAttribute('x1', '0');
     xAxis.setAttribute('y1', CENTER);
@@ -133,7 +133,7 @@ function drawAxes(r) {
     yArrow.setAttribute('points', `${CENTER},0 ${CENTER-5},10 ${CENTER+5},10`);
     yArrow.setAttribute('fill', 'black');
     
-    // Подписи осей
+    // подписи осей
     const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     xLabel.setAttribute('x', SVG_SIZE - 15);
     xLabel.setAttribute('y', CENTER - 10);
@@ -198,7 +198,7 @@ function drawTick(parent, x1, y1, x2, y2, label, textX, textY) {
 }
 
 function updateGraph(rValue) {
-    const SCALE = 70; // 70 пикселей = 1 единица
+    const SCALE = 70;
     const CENTER = 225;
     
     const svg = document.querySelector('.graph-panel svg');
@@ -299,12 +299,12 @@ function handleSvgClick(event) {
     const x = (offsetX - CENTER) / SCALE;
     const y = (CENTER - offsetY) / SCALE;
 
-    // Устанавливаем значения в скрытые поля
+    // утанавливаем значения в скрытые поля
     document.getElementById("hiddenX").value = x.toFixed(10);
     document.getElementById("hiddenY").value = y.toFixed(10);
     document.getElementById('hiddenR').value = rValue;
 
-    // Отправляем запрос на сервер (обрабатываем только скрытые поля, пропускаем валидацию yInput и rInput)
+    // отправляем запрос на сервер (обрабатываем только скрытые поля, пропускаем валидацию yInput и rInput)
     PrimeFaces.ab({
         source: 'submitBtn',
         process: 'submitBtn hiddenX hiddenY hiddenR',

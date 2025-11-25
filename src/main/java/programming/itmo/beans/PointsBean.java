@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -66,10 +65,6 @@ public class PointsBean implements Serializable {
                             if (pointInArea) bulletHit = true;
                         }
                     }
-                } else if (x != null) {
-                    // Если hiddenX пустой, используем обычный x
-                    inArea = checkAreaUtil.process(x, yValue, rValue);
-                    if (inArea) bulletHit = true;
                 }
             }
         } catch (NumberFormatException e) {
@@ -92,7 +87,7 @@ public class PointsBean implements Serializable {
 
     public void updateFilteredPoints() {
         List<PointDTO> allPoints = checkAreaUtil.getPointRepository().getAllPoints();
-        // Пересчитываем попадание точек с текущим максимальным R
+        // пересчитываем попадание точек с текущим максимальным R
         if (currentMaxR != null && currentMaxR.compareTo(BigDecimal.ZERO) > 0) {
             allPoints.forEach(p -> {
                 p.setInArea(checkAreaUtil.check(p.getX(), p.getY(), currentMaxR));

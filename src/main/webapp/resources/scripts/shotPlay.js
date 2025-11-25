@@ -26,8 +26,8 @@ window.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("hiddenX").value = "";
                 window.resetXServerGlobal();
 
-                resetYInput();              // клиентский сброс Y
-                window.resetYServerGlobal(); // серверный сброс Y
+                resetYInput();
+                window.resetYServerGlobal();
             }
         });
     }
@@ -60,7 +60,7 @@ window.addEventListener("DOMContentLoaded", () => {
             }, i * 50);
         }
 
-        // Сбрасываем X/Y после всех выстрелов
+
         setTimeout(() => {
             clearHiddenInputs();
         }, savedShotCount * 60);
